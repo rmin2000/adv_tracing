@@ -1,1 +1,4 @@
-torch==
+torch==1.12.1
+torchvision==0.13.1
+numpy==1.21.5
+adversarial-robustness-toolbox==1.10.3
