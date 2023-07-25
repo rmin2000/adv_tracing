@@ -12,3 +12,11 @@ Deep neural networks have been shown vulnerable to adversarial examples. Even th
 - Torchvision == 0.13.1
 - Numpy == 1.21.5
 - Adversarial-Robustness-Toolbox == 1.10.3
+
+## Pipeline
+### Pretraining
+Use the following code to generate the pre-trained base model.
+### Watermarking
+For each model copy, we first separate the base model into the head and tail (shared with all users) and only fine-tune the model head with a specific watermark while keeping the tail frozen.
+### Tracing
+B
