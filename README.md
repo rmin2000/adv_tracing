@@ -17,6 +17,19 @@ Deep neural networks have been shown vulnerable to adversarial examples. Even th
 ### Pretraining
 Use the following code to generate the pre-trained base model.
 ### Watermarking
-For each model copy, we first separate the base model into the head and tail (shared with all users) and only fine-tune the model head with a specific watermark while keeping the tail frozen.
+For each model copy, we separate the base model into the head and tail (shared with all users) and only fine-tune the model head with a specific watermark while keeping the tail frozen.
 ### Tracing
-B
+Generate adversarial examples for each user.
+
+Trace in the data-limited case.
+Trace in the data-free case.
+
+## Citation
+
+If you find our work interesting, please consider giving a star :star: and cite as:
+
+@article{cheng2023identification,
+  title={Identification of the Adversary from a Single Adversarial Example},
+  author={Cheng, Minhao and Min, Rui and Sun, Haochen and Chen, Pin-Yu},
+  year={2023}
+}
