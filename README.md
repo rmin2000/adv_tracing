@@ -27,9 +27,10 @@ Trace in the data-free case.
 ## Citation
 
 If you find our work interesting, please consider giving a star :star: and cite as:
-
+```
 @article{cheng2023identification,
   title={Identification of the Adversary from a Single Adversarial Example},
   author={Cheng, Minhao and Min, Rui and Sun, Haochen and Chen, Pin-Yu},
   year={2023}
 }
+```
