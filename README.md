@@ -16,14 +16,22 @@ Deep neural networks have been shown vulnerable to adversarial examples. Even th
 ## Pipeline
 ### Pretraining
 Use the following code to generate the pre-trained base model.
+```
+```
 ### Watermarking
 For each model copy, we separate the base model into the head and tail (shared with all users) and only fine-tune the model head with a specific watermark while keeping the tail frozen.
+```
+```
 ### Tracing
 Generate adversarial examples for each user.
-
+```
+```
 Trace in the data-limited case.
+```
+```
 Trace in the data-free case.
-
+```
+```
 ## Citation
 
 If you find our work interesting, please consider giving a star :star: and cite as:
