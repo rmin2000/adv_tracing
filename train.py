@@ -26,7 +26,12 @@ if __name__ == "__main__":
     parser.add_argument('-md', '--masked_dims', help = 'Number of masked dimensions', type = int, default = 100)
     
     args = parser.parse_args()
-   
+    
+    if args.dataset_name == 'CIFAR10' or args.dataset_name == 'GTSRB':
+        C, H, W = 3, 32, 32
+    elif args.dataset_name == 'tiny':
+        C, H, W = 3, 64, 64
+
     # Create the model and the dataset
     training_set, testing_set = eval(f'{args.dataset_name}_training_set'), eval(f'{args.dataset_name}_testing_set')
     num_classes = eval(f'{args.dataset_name}_num_classes')
