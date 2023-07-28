@@ -39,6 +39,3 @@ class VGG16Tail(nn.Module):
                 in_channels = x
         layers += [nn.AvgPool2d(kernel_size=1, stride=1)]
         return nn.Sequential(*layers)
-
-if __name__ == '__main__':
-    pass
