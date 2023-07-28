@@ -35,6 +35,7 @@ if __name__ == "__main__":
     normalizer = transforms.Normalize(means, stds)
     training_loader = torch.utils.data.DataLoader(training_set, batch_size = args.batch_size, shuffle = True, num_workers = args.num_workers)
     testing_loader = torch.utils.data.DataLoader(testing_set, batch_size = args.batch_size, shuffle = True, num_workers = args.num_workers)
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     # Place to save the trained model
     save_dir = f'saved_models/{args.model_name}-{args.dataset_name}'
@@ -43,8 +44,8 @@ if __name__ == "__main__":
     # Load the tail of the model
     tail = Tail(num_classes)
     tail.load_state_dict(torch.load(f'{save_dir}/base_tail_state_dict'))
-    if torch.cuda.is_available():
-        tail.cuda()
+    
+    tail.to(device)
 
     
     # training
@@ -54,8 +55,8 @@ if __name__ == "__main__":
         os.makedirs(f'{save_dir}/head_{i}', exist_ok = True)
         
         head = nn.Sequential(Watermark.random(args.masked_dims, C, H, W), Head())
-        if torch.cuda.is_available():
-            head.cuda()
+        
+        head.to(device)
         head[0].save(f'{save_dir}/head_{i}/watermark.npy')
         head[1].load_state_dict(torch.load(f'{save_dir}/base_head_state_dict'))
         optimizer = torch.optim.Adam(head.parameters(), lr = args.learning_rate)
@@ -67,9 +68,10 @@ if __name__ == "__main__":
             epoch_mask_grad_norm, epoch_mask_grad_norm_inverse = 0., 0.
             epoch_loss = 0.0
             for X, y in training_loader:
+                X, y = X.to(device), y.to(device)
                 optimizer.zero_grad()
-                out_clean = tail(head(normalizer(X.cuda())))
-                clean_loss = Loss(out_clean, y.cuda())
+                out_clean = tail(head(normalizer(X)))
+                clean_loss = Loss(out_clean, y)
                 loss = clean_loss
                 loss.backward()
                 optimizer.step()
@@ -82,8 +84,9 @@ if __name__ == "__main__":
             accuracy = 0.0
             with torch.no_grad():
                 for X, y in testing_loader:
-                    _, pred = tail(head(normalizer(X.cuda()))).max(axis = -1)
-                    accuracy += (pred == y.cuda()).sum().item() / len(testing_set)
+                    X, y = X.to(device), y.to(device)
+                    _, pred = tail(head(normalizer(X))).max(axis = -1)
+                    accuracy += (pred == y).sum().item() / len(testing_set)
 
             print(f'Head {i}, epoch {n}, loss {epoch_loss:.3f}, accuracy = {accuracy:.4f}')
 
