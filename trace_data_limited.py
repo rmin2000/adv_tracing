@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser.add_argument('--attacks', default='Bandit', help='Attacks to be explored.', nargs='+')
     parser.add_argument('--alpha', help='Hyper-parameter alpha.', type=float)
     parser.add_argument('-M', '--num_models', help='The number of models used.', type=int, default=50)
-    parser.add_argument('-n', '--num_samples', help='The number of adversarial samples per model.', type=int, default=5)
+    parser.add_argument('-n', '--num_samples', help='The number of adversarial samples per model.', type=int, default=1)
     
     args = parser.parse_args()
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
