@@ -36,7 +36,7 @@ if __name__ == "__main__":
     training_loader = torch.utils.data.DataLoader(training_set, batch_size = args.batch_size, shuffle = True, num_workers = args.num_workers)
     testing_loader = torch.utils.data.DataLoader(testing_set, batch_size = args.batch_size, shuffle = True, num_workers = args.num_workers)
 
-    # Save the trained model
+    # Place to save the trained model
     save_dir = f'saved_models/{args.model_name}-{args.dataset_name}'
     os.makedirs(save_dir, exist_ok = True)
 
