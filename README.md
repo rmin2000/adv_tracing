@@ -34,6 +34,7 @@ python trace_data_limited.py --model_name ResNet18 --dataset_name CIFAR10 --alph
 ```
 Trace in the data-free case.
 ```
+python trace_data_free.py --model_name ResNet18 --dataset_name CIFAR10 --alpha 0.9 --attack Bandit
 ```
 ## Citation
 
