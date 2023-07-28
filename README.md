@@ -15,7 +15,7 @@ Deep neural networks have been shown vulnerable to adversarial examples. Even th
 
 ## Pipeline
 ### Pretraining
-Use the following code to generate the pre-trained ResNet18 model on CIFAR-10 dataset.
+Use the following script to generate the pre-trained ResNet18 model on CIFAR-10 dataset.
 ```
 python train_base_model.py --model_name ResNet18 --dataset_name CIFAR10
 ```
@@ -25,16 +25,17 @@ For each model copy, we separate the base model into the head and tail (shared w
 python train.py --model_name ResNet18 --dataset_name CIFAR10
 ```
 ### Tracing
-Generate adversarial examples for each user.
+You could use the following script to generate adversarial examples for each user. In our demo, we apply the [Bandit](https://arxiv.org/abs/1807.07978) and generate 10 adversarial examples for each user (50*10 in total).
 ```
+python attacks/bandit.py --model_name ResNet18 --dataset_name CIFAR10 -M 50 -n 10
 ```
-Trace in the data-limited case, the following script is a demo for tracing the [Bandit](https://arxiv.org/abs/1807.07978) attack with ResNet18 and CIFAR-10.
+We introduce two scenarios for tracing, namely the data-limited setting (with original image) and the data-free setting (without original image). The following script works in the data-limited case, and here we only take one adversarial example for each user to identify the adversary. 
 ```
-python trace_data_limited.py --model_name ResNet18 --dataset_name CIFAR10 --alpha 0.9 --attack Bandit
+python trace_data_limited.py --model_name ResNet18 --dataset_name CIFAR10 --alpha 0.9 --attack Bandit -M 50 -n 1
 ```
 Trace in the data-free case.
 ```
-python trace_data_free.py --model_name ResNet18 --dataset_name CIFAR10 --alpha 0.9 --attack Bandit
+python trace_data_free.py --model_name ResNet18 --dataset_name CIFAR10 --alpha 0.9 --attack Bandit -M -n 1
 ```
 ## Citation
 
