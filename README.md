@@ -28,8 +28,9 @@ python train.py --model_name ResNet18 --dataset_name CIFAR10
 Generate adversarial examples for each user.
 ```
 ```
-Trace in the data-limited case.
+Trace in the data-limited case, the following script is a demo for tracing the [Bandit](https://arxiv.org/abs/1807.07978) attack with ResNet18 and CIFAR-10.
 ```
+python trace_data_limited.py --model_name ResNet18 --dataset_name CIFAR10 --alpha 0.9 --attack Bandit
 ```
 Trace in the data-free case.
 ```
