@@ -15,8 +15,9 @@ Deep neural networks have been shown vulnerable to adversarial examples. Even th
 
 ## Pipeline
 ### Pretraining
-Use the following code to generate the pre-trained base model.
+Use the following code to generate the pre-trained ResNet18 model on CIFAR-10 dataset.
 ```
+python train_base_model.py --model_name ResNet18 --dataset_name CIFAR10
 ```
 ### Watermarking
 For each model copy, we separate the base model into the head and tail (shared with all users) and only fine-tune the model head with a specific watermark while keeping the tail frozen. Here is a demo script for watermarking ResNet18 with the CIFAR-10 dataset. 
