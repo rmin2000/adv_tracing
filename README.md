@@ -19,8 +19,9 @@ Use the following code to generate the pre-trained base model.
 ```
 ```
 ### Watermarking
-For each model copy, we separate the base model into the head and tail (shared with all users) and only fine-tune the model head with a specific watermark while keeping the tail frozen.
+For each model copy, we separate the base model into the head and tail (shared with all users) and only fine-tune the model head with a specific watermark while keeping the tail frozen. Here is a demo script for watermarking ResNet18 with the CIFAR-10 dataset. 
 ```
+python train.py --model_name ResNet18 --dataset_name CIFAR10
 ```
 ### Tracing
 Generate adversarial examples for each user.
