@@ -1,14 +1,11 @@
-import os
-os.environ['CUDA_VISIBLE_DEVICES']='1'
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 import numpy as np
 import os
 import argparse
 import sys
-sys.path.append('/ssddata1/user02/adv_tracing_copy/')
+
 from models import *
 
 from models import *
@@ -20,7 +17,6 @@ from attacks.score import ScoreBlackBoxAttack
 from attacks import *
 from torch.nn import Upsample
 
-print(C,H,W)
 Loss = nn.CrossEntropyLoss(reduction = 'none')
 
 class BanditAttack(ScoreBlackBoxAttack):
@@ -161,6 +157,10 @@ if __name__ == '__main__':
     parser.add_argument('-b', '--batch_size', help = 'The batch size used for attacks.', type = int, default = 10)
     args = parser.parse_args()
     
+    if args.dataset_name == 'CIFAR10' or args.dataset_name == 'GTSRB':
+        C, H, W = 3, 32, 32
+    elif args.dataset_name == 'tiny':
+        C, H, W = 3, 64, 64
     
     # renaming
     training_set, testing_set = eval(f'{args.dataset_name}_training_set'), eval(f'{args.dataset_name}_testing_set')
@@ -196,8 +196,8 @@ if __name__ == '__main__':
         
         classifier = PyTorchClassifier(
             model = models[-1],
-            loss = None, # dummy
-            optimizer = None, # dummy
+            loss = None, 
+            optimizer = None, 
             clip_values = (0, 1),
             input_shape=(C, H, W),
             nb_classes=num_classes,
