@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     # Load the tail of the model
     tail = Tail(num_classes)
-    tail.load_state_dict(torch.load(f'saved_models/{args.model_name}-{args.dataset_name}-{args.num_heads}Heads/base_tail_state_dict'))
+    tail.load_state_dict(torch.load(f'saved_models/{args.model_name}-{args.dataset_name}/base_tail_state_dict'))
     if torch.cuda.is_available():
         tail.cuda()
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         if torch.cuda.is_available():
             head.cuda()
         head[0].save(f'{save_dir}/head_{i}/watermark.npy')
-        head[1].load_state_dict(torch.load(f'saved_models/{args.model_name}-{args.dataset_name}-{args.num_heads}Heads/base_head_state_dict'))
+        head[1].load_state_dict(torch.load(f'saved_models/{args.model_name}-{args.dataset_name}/base_head_state_dict'))
         optimizer = torch.optim.Adam(head.parameters(), lr = args.learning_rate)
         Loss = nn.CrossEntropyLoss()
         best_accuracy = 0.
