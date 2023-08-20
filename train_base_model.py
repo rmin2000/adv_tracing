@@ -1,29 +1,27 @@
 import torch
 import torch.nn as nn
-import time
-
 import os
 import argparse
 
-from models import *
-from datasets import *
+from torchvision import transforms
+from models import VGG16Head, VGG16Tail, ResNet18Head, ResNet18Tail
+import config
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name', help = 'Benchmark model structure.', choices = ['VGG16', 'ResNet18'])
     parser.add_argument('--dataset_name', help = 'Benchmark dataset used.', choices = ['CIFAR10', 'GTSRB', 'tiny'])
     parser.add_argument('--num_workers', help = 'Number of workers', type = int, default = 2)
-    parser.add_argument('-b', '--batch_size', help = 'Batch size.', type = int, default = 80)
+    parser.add_argument('-b', '--batch_size', help = 'Batch size.', type = int, default = 128)
     parser.add_argument('-e', '--num_epochs', help = 'Number of epochs.', type = int, default = 50)
     parser.add_argument('-lr', '--learning_rate', help = 'Learning rate.', type = float, default = 1e-3)
     args = parser.parse_args()
 
-    
-
     # Create the model and the dataset
-    training_set, testing_set = eval(f'{args.dataset_name}_training_set'), eval(f'{args.dataset_name}_testing_set')
-    num_classes = eval(f'{args.dataset_name}_num_classes')
-    means, stds = eval(f'{args.dataset_name}_means'), eval(f'{args.dataset_name}_stds')
+    dataset = eval(f'config.{args.dataset_name}()')
+    training_set, testing_set = eval('dataset.training_set'), eval('dataset.testing_set')
+    num_classes = eval('dataset.num_classes')
+    means, stds = eval('dataset.means'), eval('dataset.stds')
     Head, Tail = eval(f'{args.model_name}Head'), eval(f'{args.model_name}Tail')
     base_model = nn.Sequential(transforms.Normalize(means, stds), Head(), Tail(num_classes))
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
