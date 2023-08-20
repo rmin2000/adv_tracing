@@ -25,17 +25,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     dataset = eval(f'config.{args.dataset_name}()')
-    training_set, testing_set = eval('dataset.training_set'), eval('dataset.testing_set')
-    num_classes = eval('dataset.num_classes')
-    means, stds = eval('dataset.means'), eval('dataset.stds')
+    training_set, testing_set = dataset.training_set, dataset.testing_set
+    num_classes = dataset.num_classes
+    means, stds = dataset.means, dataset.stds
+    C, H, W = dataset.C, dataset.H, dataset.W
     Head, Tail = eval(f'{args.model_name}Head'), eval(f'{args.model_name}Tail')
     testing_loader = torch.utils.data.DataLoader(testing_set, batch_size = args.batch_size, shuffle = True, num_workers = 2)
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    if args.dataset_name == 'CIFAR10' or args.dataset_name == 'GTSRB':
-        C, H, W = 3, 32, 32
-    elif args.dataset_name == 'tiny':
-        C, H, W = 3, 64, 64
     
     model_dir = f'saved_models/{args.model_name}-{args.dataset_name}'
 
