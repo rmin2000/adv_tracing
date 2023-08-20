@@ -12,7 +12,7 @@ from watermark import Watermark
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name', default='ResNet18', help='Benchmark model structure.', choices=['VGG16', 'ResNet18'])
-    parser.add_argument('--dataset_name', default='CIFAR10', help='Benchmark dataset used.', choices=['CIFAR10', 'GTSRB', 'tiny'])
+    parser.add_argument('--dataset_name', default='CIFAR10', help='Benchmark dataset used.', choices=['CIFAR10', 'GTSRB', 'TINY'])
     parser.add_argument('--attacks', default='Bandit', help='Attacks to be explored.', nargs='+')
     parser.add_argument('--alpha', help='Hyper-parameter alpha.', type=float)
     parser.add_argument('-M', '--num_models', help='The number of models used for identification.', type=int, default=50)
