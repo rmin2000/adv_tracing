@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+from torchvision import transforms
 import os
 import argparse
 
-from models import *
-from datasets import *
+from models import VGG16Head, VGG16Tail, ResNet18Head, ResNet18Tail
+import config
 from watermark import Watermark
 
 
@@ -33,9 +33,10 @@ if __name__ == "__main__":
         C, H, W = 3, 64, 64
 
     # Create the model and the dataset
-    training_set, testing_set = eval(f'{args.dataset_name}_training_set'), eval(f'{args.dataset_name}_testing_set')
-    num_classes = eval(f'{args.dataset_name}_num_classes')
-    means, stds = eval(f'{args.dataset_name}_means'), eval(f'{args.dataset_name}_stds')
+    dataset = eval(f'config.{args.dataset_name}()')
+    training_set, testing_set = eval('dataset.training_set'), eval('dataset.testing_set')
+    num_classes = eval('dataset.num_classes')
+    means, stds = eval('dataset.means'), eval('dataset.stds')
     Head, Tail = eval(f'{args.model_name}Head'), eval(f'{args.model_name}Tail')
     normalizer = transforms.Normalize(means, stds)
     training_loader = torch.utils.data.DataLoader(training_set, batch_size = args.batch_size, shuffle = True, num_workers = args.num_workers)
