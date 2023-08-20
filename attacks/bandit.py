@@ -1,21 +1,18 @@
 import torch
 import torch.nn as nn
-
+from torch.nn import Upsample
+from torchvision import transforms
 import numpy as np
 import os
 import argparse
-import sys
-
-from models import *
-
-from models import *
-from datasets import *
-from watermark import Watermark
-
 from art.estimators.classification import PyTorchClassifier
+
+from models import VGG16Head, VGG16Tail, ResNet18Head, ResNet18Tail
+import config
+from watermark import Watermark
 from attacks.score import ScoreBlackBoxAttack
 from attacks import *
-from torch.nn import Upsample
+
 
 Loss = nn.CrossEntropyLoss(reduction = 'none')
 
@@ -163,9 +160,10 @@ if __name__ == '__main__':
         C, H, W = 3, 64, 64
     
     # renaming
-    training_set, testing_set = eval(f'{args.dataset_name}_training_set'), eval(f'{args.dataset_name}_testing_set')
-    num_classes = eval(f'{args.dataset_name}_num_classes')
-    means, stds = eval(f'{args.dataset_name}_means'), eval(f'{args.dataset_name}_stds')
+    dataset = eval(f'config.{args.dataset_name}()')
+    training_set, testing_set = eval('dataset.training_set'), eval('dataset.testing_set')
+    num_classes = eval('dataset.num_classes')
+    means, stds = eval('dataset.means'), eval('dataset.stds')
     Head, Tail = eval(f'{args.model_name}Head'), eval(f'{args.model_name}Tail')
     testing_loader = torch.utils.data.DataLoader(testing_set, batch_size = args.batch_size, shuffle = True, num_workers = 2)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
