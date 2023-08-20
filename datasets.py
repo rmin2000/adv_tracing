@@ -14,10 +14,10 @@ CIFAR10_transform_test = transforms.ToTensor()
 
 CIFAR10_means, CIFAR10_stds = (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
 
-CIFAR10_training_set = torchvision.datasets.CIFAR10(root = f'./data', train = True, transform = CIFAR10_transform_train, download = False)
-CIFAR10_testing_set = torchvision.datasets.CIFAR10(root = f'./data', train = False, transform = CIFAR10_transform_test, download = False)
+CIFAR10_training_set = torchvision.datasets.CIFAR10(root = f'./data', train = True, transform = CIFAR10_transform_train, download = True)
+CIFAR10_testing_set = torchvision.datasets.CIFAR10(root = f'./data', train = False, transform = CIFAR10_transform_test, download = True)
 CIFAR10_num_classes = 10
-CIFAR10_dataset = torchvision.datasets.CIFAR10(root = f'./data', train = False, transform = None, download = False)
+CIFAR10_dataset = torchvision.datasets.CIFAR10(root = f'./data', train = False, transform = None, download = True)
 
 # GTSRB
 GTSRB_transform_train = transforms.Compose([
@@ -33,9 +33,9 @@ GTSRB_transform_test = transforms.Compose([
 
 GTSRB_means, GTSRB_stds = (0.3337, 0.3064, 0.3171), (0.2672, 0.2564, 0.2629)
 
-GTSRB_training_set = torchvision.datasets.GTSRB(root = f'./data', split = 'train', transform = GTSRB_transform_train, download = False)
-GTSRB_testing_set = torchvision.datasets.GTSRB(root = f'./data', split = 'test', transform = GTSRB_transform_test, download = False)
-GTSRB_dataset = torchvision.datasets.GTSRB(root = f'./data', split = 'train', transform = None, download = False)
+GTSRB_training_set = torchvision.datasets.GTSRB(root = f'./data', split = 'train', transform = GTSRB_transform_train, download = True)
+GTSRB_testing_set = torchvision.datasets.GTSRB(root = f'./data', split = 'test', transform = GTSRB_transform_test, download = True)
+GTSRB_dataset = torchvision.datasets.GTSRB(root = f'./data', split = 'train', transform = None, download = True)
 GTSRB_num_classes = 43
 
 # TINY
