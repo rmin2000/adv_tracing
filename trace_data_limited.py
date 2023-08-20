@@ -1,11 +1,11 @@
 import torch
 import torch.nn as nn
-
+from torchvision import transforms
 import numpy as np
 import argparse
 
-from models import *
-from datasets import *
+from models import VGG16Head, VGG16Tail, ResNet18Head, ResNet18Tail
+import config
 from watermark import Watermark
 
 
@@ -15,21 +15,21 @@ if __name__ == '__main__':
     parser.add_argument('--dataset_name', default='CIFAR10', help='Benchmark dataset used.', choices=['CIFAR10', 'GTSRB', 'tiny'])
     parser.add_argument('--attacks', default='Bandit', help='Attacks to be explored.', nargs='+')
     parser.add_argument('--alpha', help='Hyper-parameter alpha.', type=float)
-    parser.add_argument('-M', '--num_models', help='The number of models used.', type=int, default=50)
+    parser.add_argument('-M', '--num_models', help='The number of models used for identification.', type=int, default=50)
     parser.add_argument('-n', '--num_samples', help='The number of adversarial samples per model.', type=int, default=1)
     
     args = parser.parse_args()
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     
 
-    training_set, testing_set = eval(f'{args.dataset_name}_training_set'), eval(f'{args.dataset_name}_testing_set')
-    num_classes = eval(f'{args.dataset_name}_num_classes')
-    
-    means, stds = eval(f'{args.dataset_name}_means'), eval(f'{args.dataset_name}_stds')
+    dataset = eval(f'config.{args.dataset_name}()')
+    training_set, testing_set = eval('dataset.training_set'), eval('dataset.testing_set')
+    num_classes = eval('dataset.num_classes')
+    means, stds = eval('dataset.means'), eval('dataset.stds')
     Head, Tail = eval(f'{args.model_name}Head'), eval(f'{args.model_name}Tail')
 
-    model_dir = f'/ssddata1/user02/tracing/saved_models/{args.model_name}-{args.dataset_name}'
-    adv_dir = f'/ssddata1/user02/tracing/saved_adv_examples/{args.model_name}-{args.dataset_name}-100heads'
+    model_dir = f'./saved_models/{args.model_name}-{args.dataset_name}'
+    adv_dir = f'./saved_adv_examples/{args.model_name}-{args.dataset_name}'
 
     # load the tail of the model
     normalizer = transforms.Normalize(means, stds)
