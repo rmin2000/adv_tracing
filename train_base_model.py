@@ -10,7 +10,7 @@ import config
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name', help = 'Benchmark model structure.', choices = ['VGG16', 'ResNet18'])
-    parser.add_argument('--dataset_name', help = 'Benchmark dataset used.', choices = ['CIFAR10', 'GTSRB', 'tiny'])
+    parser.add_argument('--dataset_name', help = 'Benchmark dataset used.', choices = ['CIFAR10', 'GTSRB', 'TINY'])
     parser.add_argument('--num_workers', help = 'Number of workers', type = int, default = 2)
     parser.add_argument('-b', '--batch_size', help = 'Batch size.', type = int, default = 128)
     parser.add_argument('-e', '--num_epochs', help = 'Number of epochs.', type = int, default = 50)
