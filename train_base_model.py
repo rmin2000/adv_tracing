@@ -19,9 +19,9 @@ if __name__ == "__main__":
 
     # Create the model and the dataset
     dataset = eval(f'config.{args.dataset_name}()')
-    training_set, testing_set = eval('dataset.training_set'), eval('dataset.testing_set')
-    num_classes = eval('dataset.num_classes')
-    means, stds = eval('dataset.means'), eval('dataset.stds')
+    training_set, testing_set = dataset.training_set, dataset.testing_set
+    num_classes = dataset.num_classes
+    means, stds = dataset.means, dataset.stds
     Head, Tail = eval(f'{args.model_name}Head'), eval(f'{args.model_name}Tail')
     base_model = nn.Sequential(transforms.Normalize(means, stds), Head(), Tail(num_classes))
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
