@@ -27,7 +27,7 @@ python train.py --model_name ResNet18 --dataset_name CIFAR10
 ### Tracing
 You could use the following script to generate adversarial examples for each user. In our demo, we apply the [Bandit](https://arxiv.org/abs/1807.07978) and generate 10 adversarial examples for each user (50*10 in total).
 ```
-python attacks/bandit.py --model_name ResNet18 --dataset_name CIFAR10 -M 50 -n 10
+python -m attacks.bandit --model_name ResNet18 --dataset_name CIFAR10 -M 50 -n 10
 ```
 We introduce two scenarios for tracing, namely the data-limited setting (with original image) and the data-free setting (without original image). The following script works in the data-limited case, and here we only take one adversarial example for each user to identify the adversary. 
 ```
