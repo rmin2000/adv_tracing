@@ -1,16 +1,16 @@
 import torch
 import torch.nn as nn
-
+from torchvision import transforms
 import numpy as np
 import os
 import argparse
-
-from models import *
-from datasets import *
-from watermark import Watermark
-
 from art.estimators.classification import PyTorchClassifier
 from art.attacks.evasion import SimBA
+
+from models import VGG16Head, VGG16Tail, ResNet18Head, ResNet18Tail
+import config
+from watermark import Watermark
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
