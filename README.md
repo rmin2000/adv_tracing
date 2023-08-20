@@ -15,7 +15,7 @@ Deep neural networks have been shown vulnerable to adversarial examples. Even th
 
 ## Pipeline
 ### Pretraining
-Use the following script to generate the pre-trained ResNet18 model on CIFAR-10 dataset.
+Use the following script to generate the pre-trained ResNet18 model on CIFAR-10 dataset. For Tiny-ImageNet, you may need to download the dataset from this [link](http://cs231n.stanford.edu/tiny-imagenet-200.zip) and move the data to your data directory.
 ```
 python train_base_model.py --model_name ResNet18 --dataset_name CIFAR10
 ```
