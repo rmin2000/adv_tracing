@@ -23,9 +23,9 @@ if __name__ == '__main__':
     
 
     dataset = eval(f'config.{args.dataset_name}()')
-    training_set, testing_set = eval('dataset.training_set'), eval('dataset.testing_set')
-    num_classes = eval('dataset.num_classes')
-    means, stds = eval('dataset.means'), eval('dataset.stds')
+    training_set, testing_set = dataset.training_set, dataset.testing_set
+    num_classes = dataset.num_classes
+    means, stds = dataset.means, dataset.stds
     Head, Tail = eval(f'{args.model_name}Head'), eval(f'{args.model_name}Tail')
 
     model_dir = f'./saved_models/{args.model_name}-{args.dataset_name}'
