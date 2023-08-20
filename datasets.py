@@ -16,8 +16,9 @@ CIFAR10_means, CIFAR10_stds = (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
 
 CIFAR10_training_set = torchvision.datasets.CIFAR10(root = f'./data', train = True, transform = CIFAR10_transform_train, download = True)
 CIFAR10_testing_set = torchvision.datasets.CIFAR10(root = f'./data', train = False, transform = CIFAR10_transform_test, download = True)
-CIFAR10_num_classes = 10
 CIFAR10_dataset = torchvision.datasets.CIFAR10(root = f'./data', train = False, transform = None, download = True)
+CIFAR10_num_classes = 10
+
 
 # GTSRB
 GTSRB_transform_train = transforms.Compose([
