@@ -42,9 +42,12 @@ python trace_data_free.py --model_name ResNet18 --dataset_name CIFAR10 --alpha 0
 
 If you find our work interesting, please consider giving a star :star: and cite as:
 ```
-@article{cheng2023identification,
-  title={Identification of the Adversary from a Single Adversarial Example},
+@inproceedings{cheng2023identification,
+  title={Identification of the adversary from a single adversarial example},
   author={Cheng, Minhao and Min, Rui and Sun, Haochen and Chen, Pin-Yu},
-  year={2023}
+  booktitle={International Conference on Machine Learning},
+  pages={5472--5484},
+  year={2023},
+  organization={PMLR}
 }
 ```
